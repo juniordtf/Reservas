@@ -1,0 +1,6 @@
+Documentação de usoPara iniciar os serviços:1 – Instalar a pasta node_modules e o arquivo package-lock.json nas pastas “booking_back”,  “booking_front” através do comando “npm install”;2 – Abrir um terminal na pasta “booking_back” e iniciar o meteor através do comando “meteor”;3 – Em um outro terminal acessar a pasta "booking_back" e rodar o comando “nodemon index.js”;4 – Para testar o app:
+   Abrir um terminal na pasta “booking_front” e dar o comando “react-native run-ios” ou “react-native run-android” para abrir o aplicativo no simulador;
+   Fazer login com:
+   Username: jonas15
+   Senha: 123456
+   Escolher a cidade de destino e as datas de entrada e saída através do calendário. Depois que a reserva for realizada ela irá aparecer na guia "Reservas" que se encontra na parte de baixo da tela do app.
