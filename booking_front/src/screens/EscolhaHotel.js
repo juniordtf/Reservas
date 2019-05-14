@@ -50,8 +50,8 @@ class EscolhaHotel extends React.Component {
 
     axios
       .request({
-        method: "get",
         url: "http://localhost:4321/hotel/"+cidade,
+        method: "get",
         headers: { "x-access-token": acc }
       })
       .then(response => {
@@ -130,7 +130,7 @@ class EscolhaHotel extends React.Component {
             <FlatList 
             data={this.state.hoteis} 
             renderItem={this.renderItem}
-            keyExtractor={item => item.nome} 
+            keyExtractor={item => item._id} 
             />
           </View>
         </Content>

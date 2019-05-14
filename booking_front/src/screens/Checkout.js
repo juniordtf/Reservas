@@ -108,7 +108,7 @@ class Checkout extends React.Component {
     let valorTotalA = qteDiarias * item.valorDiaria01;
     let valorTotalB = qteDiarias * item.valorDiaria02;
 
-    //Para não renderizar produtos com quantidade 0
+    //Para decidir qual quarto renderizar
     if (quartoA == item.quarto01) {
 
       this.setState({
@@ -257,7 +257,7 @@ class Checkout extends React.Component {
             <FlatList
               data={this.state.hotel}
               renderItem={this.renderItem}
-              keyExtractor={item => item.nome}
+              keyExtractor={item => item._id}
             />
           </View>
           <Text />

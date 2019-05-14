@@ -377,7 +377,7 @@ MongoClient.connect(url, (err, client) => {
   });
 
   //Para alterar um cadastro de hotel em Salvador
-  app.put("/hotel/Salvador?:id", verifyJWT, (req, res) => {
+  app.put("/hotel/:Salvador/:id", verifyJWT, (req, res) => {
     let id = new ObjectId(req.params.id);
 
     db.collection("salvador").updateOne(

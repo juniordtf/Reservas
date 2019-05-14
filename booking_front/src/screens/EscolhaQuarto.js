@@ -52,7 +52,7 @@ class EscolhaQuarto extends React.Component {
     axios
       .request({
         method: "get",
-        url: "http://localhost:4321/hotel/" + cidade + "?" + id,
+        url: "http://localhost:4321/hotel/" + cidade + "/" + id,
         headers: { "x-access-token": acc }
       })
       .then(response => {
@@ -61,126 +61,17 @@ class EscolhaQuarto extends React.Component {
       .catch(err => console.log(err));
   };
 
-  renderItem = ({ item }) => {
-    const qteDiarias = this.props.navigation.getParam('diarias');
-    const start = this.props.navigation.getParam('start');
-    const end = this.props.navigation.getParam('end');
-    let idHotel = item._id;
-    let local = item.cidade;
-    let valorTotalA = qteDiarias*item.valorDiaria01;
-    let valorTotalB = qteDiarias*item.valorDiaria02;
-    let quartoA = item.quarto01;
-    let quartoB = item.quarto02;
-    return (
-      <View>
-        <View
-          style={{
-            marginLeft: "5%",
-            marginRight: "5%"
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "column"
-            }}
-          >
-            <View>
-              <Text style={styles.textRoom}>{item.quarto01}</Text>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row"
-              }}
-            >
-              <Text />
-              <View>
-                <Image
-                  style={{ width: 90, height: 90 }}
-                  source={{
-                    uri: item.imagemQuarto01
-                  }}
-                />
-              </View>
-              <View style={{ marginLeft: 10 }}>
-                <Text style={{ marginBottom: 2, fontSize: 15 }}>
-                  Diária: R$ {item.valorDiaria01}
-                </Text>
-                <Text style={{ marginBottom: 2, fontSize: 15 }}>
-                  Valor total: R$ {valorTotalA}
-                </Text>
-                <View style={{ marginLeft: 130 }}>
-                  <Button
-                    bordered
-                    onPress={() => this.props.navigation.navigate("Checkout",{quartoA,qteDiarias,idHotel,local,start,end})}
-                  >
-                    <Text style={styles.bigBlueRoom}> Reservar </Text>
-                  </Button>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.line} />
-        </View>
-        <View
-          style={{
-            marginLeft: "5%",
-            marginRight: "5%"
-          }}
-        >
-          <Text />
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "column"
-            }}
-          >
-            <View>
-              <Text style={styles.textRoom}>{item.quarto02}</Text>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row"
-              }}
-            >
-              <Text />
-              <View>
-                <Image
-                  style={{ width: 90, height: 90 }}
-                  source={{
-                    uri: item.imagemQuarto02
-                  }}
-                />
-              </View>
-              <View style={{ marginLeft: 10 }}>
-                <Text style={{ marginBottom: 2, fontSize: 15 }}>
-                  Diária: R$ {item.valorDiaria02}
-                </Text>
-                <Text style={{ marginBottom: 2, fontSize: 15 }}>
-                  Valor total: R$ {valorTotalB}
-                </Text>
-                <View style={{ marginLeft: 130 }}>
-                  <Button
-                    bordered
-                    onPress={() => this.props.navigation.navigate("Checkout",{quartoB,qteDiarias,idHotel,local,start,end})}
-                  >
-                    <Text style={styles.bigBlueRoom}> Reservar </Text>
-                  </Button>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.line} />
-        </View>
-      </View>
-    );
-  };
-
   render() {
+    const qteDiarias = this.props.navigation.getParam("diarias");
+    const start = this.props.navigation.getParam("start");
+    const end = this.props.navigation.getParam("end");
+    let idHotel = this.state.hotel._id;
+    let local = this.state.hotel.cidade;
+    let valorTotalA = qteDiarias*this.state.hotel.valorDiaria01;
+    let valorTotalB = qteDiarias*this.state.hotel.valorDiaria02;
+    let quartoA = this.state.hotel.quarto01;
+    let quartoB = this.state.hotel.quarto02;
+
     return (
       <Container>
         <Header style={styles.header} iosBarStyle="light-content">
@@ -197,12 +88,127 @@ class EscolhaQuarto extends React.Component {
         <Content>
           <Text />
           <View>
-            <FlatList
-              data={this.state.hotel}
-              renderItem={this.renderItem}
-              keyExtractor={item => item.nome}
-            />
+        <View
+          style={{
+            marginLeft: "5%",
+            marginRight: "5%"
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column"
+            }}
+          >
+            <View>
+              <Text style={styles.textRoom}>{this.state.hotel.quarto01}</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row"
+              }}
+            >
+              <Text />
+              <View>
+                <Image
+                  style={{ width: 90, height: 90 }}
+                  source={{
+                    uri: this.state.hotel.imagemQuarto01
+                  }}
+                />
+              </View>
+              <View style={{ marginLeft: 10 }}>
+                <Text style={{ marginBottom: 2, fontSize: 15 }}>
+                  Diária: R$ {this.state.hotel.valorDiaria01}
+                </Text>
+                <Text style={{ marginBottom: 2, fontSize: 15 }}>
+                  Valor total: R$ {valorTotalA}
+                </Text>
+                <View style={{ marginLeft: 130 }}>
+                  <Button
+                    bordered
+                    onPress={() =>
+                      this.props.navigation.navigate("Checkout", {
+                        quartoA,
+                        qteDiarias,
+                        idHotel,
+                        local,
+                        start,
+                        end
+                      })
+                    }
+                  >
+                    <Text style={styles.bigBlueRoom}> Reservar </Text>
+                  </Button>
+                </View>
+              </View>
+            </View>
           </View>
+
+          <View style={styles.line} />
+        </View>
+        <View
+          style={{
+            marginLeft: "5%",
+            marginRight: "5%"
+          }}
+        >
+          <Text />
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column"
+            }}
+          >
+            <View>
+              <Text style={styles.textRoom}>{this.state.hotel.quarto02}</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row"
+              }}
+            >
+              <Text />
+              <View>
+                <Image
+                  style={{ width: 90, height: 90 }}
+                  source={{
+                    uri: this.state.hotel.imagemQuarto02
+                  }}
+                />
+              </View>
+              <View style={{ marginLeft: 10 }}>
+                <Text style={{ marginBottom: 2, fontSize: 15 }}>
+                  Diária: R$ {this.state.hotel.valorDiaria02}
+                </Text>
+                <Text style={{ marginBottom: 2, fontSize: 15 }}>
+                  Valor total: R$ {valorTotalB}
+                </Text>
+                <View style={{ marginLeft: 130 }}>
+                  <Button
+                    bordered
+                    onPress={() =>
+                      this.props.navigation.navigate("Checkout", {
+                        quartoB,
+                        qteDiarias,
+                        idHotel,
+                        local,
+                        start,
+                        end
+                      })
+                    }
+                  >
+                    <Text style={styles.bigBlueRoom}> Reservar </Text>
+                  </Button>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View style={styles.line} />
+        </View>
+      </View>
         </Content>
       </Container>
     );
